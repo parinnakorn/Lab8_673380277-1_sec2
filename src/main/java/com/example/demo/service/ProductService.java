@@ -67,9 +67,8 @@ public class ProductService {
         if (product == null) {
             return null;
         }
-        product.addReview(review);
-        productRepository.save(product);
-        return review;
+        review.setProduct(product);
+        return reviewRepository.save(review);
     }
 
     public void deleteReview(Long reviewId) {
