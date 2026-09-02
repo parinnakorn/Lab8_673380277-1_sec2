@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🛍️ Product Shop — เพิ่มสินค้า</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar-game">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a class="navbar-brand text-decoration-none" th:href="@{/products}">
+                <i class="bi bi-shop me-2"></i>Product Shop
+            </a>
+            <span class="nav-text">CP353002 — Lab 8: Table Relationships (1:1 &amp; 1:N)</span>
+        </div>
+    </nav>
+
+    <div class="container py-4" style="max-width: 720px;">
+        <div class="page-header">
+            <h1><i class="bi bi-plus-circle me-2"></i>เพิ่มสินค้าใหม่</h1>
+            <p class="subtitle">กรอกข้อมูลสินค้า พร้อมรายละเอียดเสริม (ProductDetail — 1:1)</p>
+        </div>
+
+        <div class="card-glass p-4">
+            <form th:action="@{/products/save}" th:object="${product}" method="post" class="form-game">
+
+                <h5 class="mb-3"><i class="bi bi-box-seam me-2"></i>ข้อมูลสินค้า</h5>
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <label class="form-label">ชื่อสินค้า</label>
+                        <input type="text" class="form-control" th:field="*{name}" placeholder="เช่น iPhone 15 Pro (673380277-1 SEC 2)" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">หมวดหมู่</label>
+                        <input type="text" class="form-control" th:field="*{category}" placeholder="เช่น Smartphone" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">ยี่ห้อ</label>
+                        <input type="text" class="form-control" th:field="*{brand}" placeholder="เช่น Apple" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">จำนวนในคลัง</label>
+                        <input type="number" class="form-control" th:field="*{stock}" min="0" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">ราคา (บาท)</label>
+                        <input type="number" step="0.01" class="form-control" th:field="*{price}" min="0" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">ประเภทส่วนลด (Strategy)</label>
+                        <select class="form-select" th:field="*{discountType}">
+                            <option value="NONE">ไม่มีส่วนลด</option>
+                            <option value="MEMBER">ส่วนลดสมาชิก (10%)</option>
+                            <option value="SEASONAL">ส่วนลดเทศกาล (20%)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <hr>
+
+                <h5 class="mb-3 mt-3"><i class="bi bi-card-text me-2"></i>รายละเอียดสินค้า (ProductDetail — 1:1)</h5>
+                <div class="row g-3">
+                    <div class="col-12">
+                        <label class="form-label">คำอธิบายสินค้า</label>
+                        <textarea class="form-control" th:field="*{detail.description}" rows="2" placeholder="อธิบายสินค้าโดยย่อ"></textarea>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">การรับประกัน</label>
+                        <input type="text" class="form-control" th:field="*{detail.warranty}" placeholder="เช่น 1 Year">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">น้ำหนัก (kg)</label>
+                        <input type="number" step="0.01" class="form-control" th:field="*{detail.weight}" min="0">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">ขนาด</label>
+                        <input type="text" class="form-control" th:field="*{detail.dimensions}" placeholder="เช่น 15x7x0.8 cm">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">ประเทศที่ผลิต</label>
+                        <input type="text" class="form-control" th:field="*{detail.manufacturedCountry}" placeholder="เช่น China">
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end gap-2 mt-4">
+                    <a th:href="@{/products}" class="btn btn-ghost">ยกเลิก</a>
+                    <button type="submit" class="btn btn-cyan"><i class="bi bi-check-circle me-2"></i>บันทึกสินค้า</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="footer-game">
+        <div class="container">
+            CP353002 Principles of Software Design — Lab 8: Table Relationships (1:1 &amp; 1:N)
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
